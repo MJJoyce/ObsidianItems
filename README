@@ -9,7 +9,39 @@ Obsidian Items Mod adds various obsidian craftables to Minecraft. Check below fo
 --------------------------------------------------
 Recipes
 --------------------------------------------------
-TODO
+
+For the following recipes:
+    O = Obsidian Bar
+    D = Diamond
+    . = Blank
+
+Obsidian Bar
+    Smelt a block of Obsidian. One block of obsidian gives one obsidian bar
+
+Obsidian Pick
+    OOO
+    .D.
+    .D.
+
+Obsidian Axe
+    OO.
+    OD.
+    .D.
+
+Obsidian Hoe 
+    OO.
+    .D.
+    .D.
+
+Obsidian Spade 
+    .O.
+    .D.
+    .D.
+
+Obsidian Sword 
+    .O.
+    .O.
+    .D.
 
 --------------------------------------------------
 Installation
