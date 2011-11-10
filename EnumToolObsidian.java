@@ -6,7 +6,7 @@ package net.minecraft.src;
 
 public enum EnumToolObsidian
 {
-    OBSIDIAN("OBSIDIAN", 5, 0, 2000, 10F, 3); 
+    OBSIDIAN("OBSIDIAN", 5, 3, 2000, 10F, 3); 
 
     private final int harvestLevel;
     private final int maxUses;
