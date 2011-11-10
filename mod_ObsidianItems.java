@@ -10,6 +10,7 @@ public class mod_ObsidianItems extends BaseMod
     public static final Item obsidianSpade = new ItemSpadeObsidian(3003, EnumToolObsidian.OBSIDIAN).setItemName("ObsidianSpade");
     public static final Item obsidianAxe = new ItemAxeObsidian(3004, EnumToolObsidian.OBSIDIAN).setItemName("ObsidianAxe");
     public static final Item obsidianSword = new ItemSwordObsidian(3005, EnumToolObsidian.OBSIDIAN).setItemName("ObsidianSword");
+    public static final Item obsidianHoe = new ItemHoeObsidian(3006, EnumToolObsidian.OBSIDIAN).setItemName("ObsidianHoe");
 
     public mod_ObsidianItems()
     {
@@ -24,6 +25,7 @@ public class mod_ObsidianItems extends BaseMod
         obsidianSpade.iconIndex = ModLoader.addOverride("/gui/items.png", "/ObsidianItemsPNGs/Items/ObsidianSpade.png");
         obsidianAxe.iconIndex = ModLoader.addOverride("/gui/items.png", "/ObsidianItemsPNGs/Items/ObsidianAxe.png");
         obsidianSword.iconIndex = ModLoader.addOverride("/gui/items.png", "/ObsidianItemsPNGs/Items/ObsidianSword.png");
+        obsidianHoe.iconIndex = ModLoader.addOverride("/gui/items.png", "/ObsidianItemsPNGs/Items/ObsidianHoe.png");
         //
         // Name registration
         //////////////////////////////////////////////////////////////////////////////////
@@ -33,6 +35,7 @@ public class mod_ObsidianItems extends BaseMod
         ModLoader.AddName(obsidianSpade, "Obsidian Spade");
         ModLoader.AddName(obsidianAxe, "Obsidian Axe");
         ModLoader.AddName(obsidianSword, "Obsidian Sword");
+        ModLoader.AddName(obsidianHoe, "Obsidian Hoe");
 
         // Recipes/Smelting
         //////////////////////////////////////////////////////////////////////////////////
@@ -42,6 +45,7 @@ public class mod_ObsidianItems extends BaseMod
         ModLoader.AddRecipe(new ItemStack(obsidianSpade, 1), new Object[] {" X ", " | ", " | ", Character.valueOf('X'), obsidianBar, Character.valueOf('|'), Item.diamond});
         ModLoader.AddRecipe(new ItemStack(obsidianAxe, 1),  new Object[] {"XX ", "X| ", " | ", Character.valueOf('X'), obsidianBar, Character.valueOf('|'), Item.diamond});
         ModLoader.AddRecipe(new ItemStack(obsidianSword, 1),  new Object[] {" X ", " X ", " | ", Character.valueOf('X'), obsidianBar, Character.valueOf('|'), Item.diamond});
+        ModLoader.AddRecipe(new ItemStack(obsidianHoe, 1),  new Object[] {"XX ", " | ", " | ", Character.valueOf('X'), obsidianBar, Character.valueOf('|'), Item.diamond});
         
     }
     
