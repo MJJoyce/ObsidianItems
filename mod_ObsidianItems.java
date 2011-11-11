@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.minecraft.client.Minecraft;
+
 public class mod_ObsidianItems extends BaseMod
 {
     // Blocks/Misc. items
@@ -20,6 +22,9 @@ public class mod_ObsidianItems extends BaseMod
 
     public mod_ObsidianItems()
     {
+        // Need this so OnTickInGame() gets called
+        ModLoader.SetInGameHook(this, true, false);
+
         // Block registrations
         //////////////////////////////////////////////////////////////////////////////////
 
@@ -47,14 +52,17 @@ public class mod_ObsidianItems extends BaseMod
         
         // Name registration
         //////////////////////////////////////////////////////////////////////////////////
+        // Ingots
         ModLoader.AddName(obsidianBar, "Obsidian Bar");
 
+        // Tools
         ModLoader.AddName(obsidianPick, "Obsidian Pick");
         ModLoader.AddName(obsidianSpade, "Obsidian Spade");
         ModLoader.AddName(obsidianAxe, "Obsidian Axe");
         ModLoader.AddName(obsidianSword, "Obsidian Sword");
         ModLoader.AddName(obsidianHoe, "Obsidian Hoe");
 
+        // Armor
         ModLoader.AddName(obsidianHelm, "Obsidian Helmet");
         ModLoader.AddName(obsidianBody, "Obsidian Chestpiece");
         ModLoader.AddName(obsidianPants, "Obsidian Pants");
@@ -62,21 +70,56 @@ public class mod_ObsidianItems extends BaseMod
 
         // Recipes/Smelting
         //////////////////////////////////////////////////////////////////////////////////
+        // Ingots
         ModLoader.AddSmelting(Block.obsidian.blockID, new ItemStack(obsidianBar));
 
+        // Tools
         ModLoader.AddRecipe(new ItemStack(obsidianPick, 1), new Object[] {"XXX", " | ", " | ", Character.valueOf('X'), obsidianBar, Character.valueOf('|'), Item.diamond});
         ModLoader.AddRecipe(new ItemStack(obsidianSpade, 1), new Object[] {" X ", " | ", " | ", Character.valueOf('X'), obsidianBar, Character.valueOf('|'), Item.diamond});
         ModLoader.AddRecipe(new ItemStack(obsidianAxe, 1),  new Object[] {"XX ", "X| ", " | ", Character.valueOf('X'), obsidianBar, Character.valueOf('|'), Item.diamond});
         ModLoader.AddRecipe(new ItemStack(obsidianSword, 1),  new Object[] {" X ", " X ", " | ", Character.valueOf('X'), obsidianBar, Character.valueOf('|'), Item.diamond});
         ModLoader.AddRecipe(new ItemStack(obsidianHoe, 1),  new Object[] {"XX ", " | ", " | ", Character.valueOf('X'), obsidianBar, Character.valueOf('|'), Item.diamond});
 
+        // Armor
         ModLoader.AddRecipe(new ItemStack(obsidianHelm, 1), new Object[] {"XXX", "X X", "   ", Character.valueOf('X'), obsidianBar});
         ModLoader.AddRecipe(new ItemStack(obsidianBody, 1), new Object[] {"X X", "XXX", "XXX", Character.valueOf('X'), obsidianBar});
         ModLoader.AddRecipe(new ItemStack(obsidianPants, 1), new Object[] {"XXX", "X X", "X X", Character.valueOf('X'), obsidianBar});
         ModLoader.AddRecipe(new ItemStack(obsidianBoots, 1), new Object[] {"   ", "X X", "X X", Character.valueOf('X'), obsidianBar});
         
     }
-    
+
+    // This gets called each tick. From testing it seems that returning false
+    // disables further checks from that point on. For instance, if false is
+    // returned when some armor piece is null, then adding another armor piece
+    // that completes the obsidian set will not result in fire immunity. It also
+    // seems that isImmuneToFire is a toggle that lasts more than just this 
+    // current tick, hence the explicit setting in all cases.
+    //////////////////////////////////////////////////////////////////////////////////
+    public boolean OnTickInGame(Minecraft mc)
+    {
+        ItemStack helm = mc.thePlayer.inventory.armorInventory[3];
+        ItemStack body = mc.thePlayer.inventory.armorInventory[2];
+        ItemStack pants = mc.thePlayer.inventory.armorInventory[1];
+        ItemStack boots = mc.thePlayer.inventory.armorInventory[0];
+
+        if (helm == null || body == null || pants == null || boots == null)
+        {
+            mc.thePlayer.isImmuneToFire = false;
+            return true;
+        }
+
+        if (helm.itemID == obsidianHelm.shiftedIndex && body.itemID == obsidianBody.shiftedIndex &&
+                pants.itemID == obsidianPants.shiftedIndex && boots.itemID == obsidianBoots.shiftedIndex)
+        {
+            mc.thePlayer.isImmuneToFire = true;
+        }
+        else
+        {
+            mc.thePlayer.isImmuneToFire = false;
+        }
+
+        return true;
+    }
 
     public String Version()
     {
